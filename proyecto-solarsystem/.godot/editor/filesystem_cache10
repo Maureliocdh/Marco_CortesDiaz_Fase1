@@ -1,0 +1,17 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1771369636
+main.gd::GDScript::4244060849774779438::1770485234::0::1::::<>Node2D<><>0<>0<><>::
+::res://assets/::1770486621
+fondo1.jpg::CompressedTexture2D::4457484993914450393::1770486154::1770486163::1::::<><><>0<>0<>8c4395d33cbb76dd0aea06797a0c51e1<>res://.godot/imported/fondo1.jpg-cd432e596718c5e59bc28ccd53f97825.ctex::
+jupiter.png::CompressedTexture2D::5853911086107449112::1770485234::1770486621::1::::<><><>0<>0<>979587ec4354e733e6472eb702f3e69c<>res://.godot/imported/jupiter.png-6f6d9a33951ab401c7a7b8d5a4d6fe4c.ctex::
+marte.png::CompressedTexture2D::2284523800035216101::1770485234::1770485915::1::::<><><>0<>0<>0c468991108b975147b5ed2fc966ac91<>res://.godot/imported/marte.png-96231943d327e48f4c2eb3efae0b33ee.ctex::
+mercurio.png::CompressedTexture2D::4761523963144004329::1770485234::1770486300::1::::<><><>0<>0<>b7f1d0253624b0cfc6cf8863bf26d928<>res://.godot/imported/mercurio.png-159afb7baaa0de03347be4815429866e.ctex::
+neptuno.png::CompressedTexture2D::3029393219639719470::1770485234::1770486610::1::::<><><>0<>0<>193dfb724850b8529216681ae5b4d064<>res://.godot/imported/neptuno.png-94bd4f60ddced016b3a640b36fb02c97.ctex::
+saturno.png::CompressedTexture2D::5190046167996874230::1770485234::1770486578::1::::<><><>0<>0<>cbfd113df4135cc48183f8845c5ce1fe<>res://.godot/imported/saturno.png-482d15e7becf77621cd3224584cc9840.ctex::
+sol.png::CompressedTexture2D::2740509867080823300::1770485234::1770485908::1::::<><><>0<>0<>6b9cfa80ee4318ef577d5a247a0f3857<>res://.godot/imported/sol.png-db4f7946dad6b52e97b5dec95969542f.ctex::
+tierra.png::CompressedTexture2D::6801875955718176529::1770485234::1770485896::1::::<><><>0<>0<>9fdbf5c89d3e714a9f9f2d1c1bee93c3<>res://.godot/imported/tierra.png-de0bd445dd6f310fd10387a6f0c07d94.ctex::
+urano.png::CompressedTexture2D::1005128885441190023::1770485234::1770486597::1::::<><><>0<>0<>cb4278dc2cdbd82dccf296139e90eb7f<>res://.godot/imported/urano.png-8c714f05342a8f5ae481c2004b2e5f3c.ctex::
+venus.png::CompressedTexture2D::2924364602226365838::1770485234::1770486275::1::::<><><>0<>0<>c2c554eb9e01f2e71bbdbd607899474b<>res://.godot/imported/venus.png-a4e1b1f49339eba0010690a5090c46c3.ctex::
+::res://escenas/::1770486733
+main.tscn::PackedScene::3451032406304581439::1770486733::0::1::::<><><>0<>0<><>::uid://b1p4cd28sscaw::::res://main.gd<>uid://b4riekmah3354::::res://assets/fondo1.jpg<>uid://crpcl7tw6bbu7::::res://escenas/planeta.tscn<>uid://bhwt4fs0yst15::::res://assets/venus.png<>uid://c3545yek74tev::::res://assets/tierra.png<>uid://bfbr2dp5tl6pc::::res://assets/sol.png<>uid://7sv1j3nadxy8::::res://assets/marte.png<>uid://b83rush3pv7ib::::res://assets/mercurio.png<>uid://cpnxcby4hxdnk::::res://assets/jupiter.png<>uid://cf7dkjigx8o1s::::res://assets/saturno.png<>uid://ok5lcy4jnq6r::::res://assets/urano.png<>uid://bjfpwtjfb58f7::::res://assets/neptuno.png
+planeta.tscn::PackedScene::5997160164401671492::1770485908::0::1::::<><><>0<>0<><>::uid://bfbr2dp5tl6pc::::res://assets/sol.png

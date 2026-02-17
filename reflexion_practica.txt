@@ -1,0 +1,82 @@
+Mi Experiencia Aprendiendo Godot
+
+Este ha sido mi primer proyecto en Godot y, honestamente, fue una experiencia muy enriquecedora. 
+Al principio, me sentía abrumado por toda la interfaz y la cantidad de conceptos nuevos, pero con 
+el tiempo descubrí que Godot es mucho más accesible de lo que pensaba.
+
+Lo Que Aprendí
+
+La creación del Solar System fue perfecta para aprender los conceptos fundamentales. Comencé 
+comprendiendo la estructura de escenas y nodos, que es la base de todo en Godot. Ver cómo se 
+organizan jerárquicamente los objetos (Main → Planetas → Mercurio, Venus, etc.) me ayudó a 
+entender realmente cómo funciona el engine. No es solo código; es una estructura visual que se 
+refleja en el código.
+
+Uno de los mayores aprendizajes fue entender cómo funciona el delta time en la función _process(). 
+Al principio no comprendía por qué era importante multiplicar todo por delta, pero cuando vi que 
+sin ello mi animación se movía a diferente velocidad en computadoras más rápidas o lentas, todo 
+hizo click. Es un concepto sencillo pero fundamental para cualquier juego.
+
+Las Dificultades
+
+Tuve algunos problemas inicialmente:
+
+1. Nombres de nodos incorrectos: Hubo un momento en que un planeta no giraba porque el nombre 
+   en la escena no coincidía exactamente con el nombre en el diccionario de velocidades. GDScript 
+   es sensible a mayúsculas y minúsculas, lo aprendí por las malas. Esto me enseñó la importancia 
+   de ser cuidadoso y consistente con los nombres.
+
+2. Referencias a nodos nulos: Olvidé adjuntar el script a algunos nodos y recibí errores confusos. 
+   Esto me hizo comprender la importancia de la arquitectura y cómo cada elemento depende del otro.
+
+3. Importación de texturas: Al principio las imágenes no aparecían. Tenía que aprender sobre cómo 
+   Godot maneja los recursos y el sistema de importación. Esto me mostró que hay mucho más detrás 
+   de "solo ponerle una imagen a un sprite".
+
+Lo Que Me Gustó
+
+Definitivamente me encantó lo simple pero poderoso que fue el código. Con apenas 25 líneas de 
+GDScript pude crear algo visual e interesante. La estructura del diccionario de velocidades es 
+elegante: permite cambiar dinámicamente cómo cada planeta se mueve sin complicar el código.
+
+También me gustó mucho el sistema de prefabs en Godot. Crear el template de planeta.tscn y luego 
+instanciarlo 9 veces fue muy eficiente. En otros motores esto podría ser complicado, pero aquí 
+fue muy natural.
+
+Lo Desafiante
+
+La parte más desafiante fue ir más allá de lo básico. Entiendo la rotación en su lugar, pero 
+cuando pensé en cómo hacer que las órbitas de los planetas se movieran alrededor del sol, me 
+dí cuenta de que necesitaría usar trigonometría (cos/sin) y que mi comprensión actual no era 
+suficiente. Eso me motivó a seguir aprendiendo.
+
+Conceptos Clave Dominados
+
+✓ Jerarquía de nodos y escenas
+✓ Extensión de clases (extends Node2D)
+✓ Diccionarios en GDScript
+✓ Bucles for...in
+✓ Delta time y animación frame-independiente
+✓ Acceso seguro a nodos con has_node() y $
+✓ Instanciación de escenas
+✓ Sprites y TextureRect
+
+Conclusión
+
+Este proyecto fue exactamente lo que necesitaba para entender los conceptos fundamentales de Godot. 
+No es el proyecto más complejo, pero su simplicidad es su fortaleza. Me enseñó que no necesitas 
+crear algo gigante para aprender mucho.
+
+Ahora que entiendo cómo funciona esta base, me siento seguro para cambiar este proyecto, hacerlo 
+más complejo (agregar órbitas, interactividad, audio, etc.) y luego pasar a otros proyectos 
+completamente nuevos.
+
+Mi siguiente objetivo es agregar movimiento orbital real a los planetas, y luego intentaré crear 
+un pequeño juego de disparos. Pero sin este proyecto de Solar System, eso sería mucho más difícil.
+
+Godot es un motor fantástico para aprender programación y desarrollo de juegos. ¡Recomendaría 
+empezar exactamente así: con un proyecto simple que enseñe conceptos fundamentales!
+
+conclusion:
+La programación es lo que haces, pero la resolución de problemas es lo que 
+aprendes. Este proyecto me enseñó ambas cosas.

@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://bpfx88prrl25p"]
+
+[ext_resource type="Script" uid="uid://b1p4cd28sscaw" path="res://main.gd" id="1_0kxa1"]
+[ext_resource type="Texture2D" uid="uid://b4riekmah3354" path="res://assets/fondo1.jpg" id="2_7an46"]
+[ext_resource type="PackedScene" uid="uid://crpcl7tw6bbu7" path="res://escenas/planeta.tscn" id="2_jumxm"]
+[ext_resource type="Texture2D" uid="uid://bhwt4fs0yst15" path="res://assets/venus.png" id="3_a8p2b"]
+[ext_resource type="Texture2D" uid="uid://c3545yek74tev" path="res://assets/tierra.png" id="3_jumxm"]
+[ext_resource type="Texture2D" uid="uid://bfbr2dp5tl6pc" path="res://assets/sol.png" id="3_woaio"]
+[ext_resource type="Texture2D" uid="uid://7sv1j3nadxy8" path="res://assets/marte.png" id="4_26pgj"]
+[ext_resource type="Texture2D" uid="uid://b83rush3pv7ib" path="res://assets/mercurio.png" id="6_o8odp"]
+[ext_resource type="Texture2D" uid="uid://cpnxcby4hxdnk" path="res://assets/jupiter.png" id="7_lyxkq"]
+[ext_resource type="Texture2D" uid="uid://cf7dkjigx8o1s" path="res://assets/saturno.png" id="8_dg7ii"]
+[ext_resource type="Texture2D" uid="uid://ok5lcy4jnq6r" path="res://assets/urano.png" id="9_woaio"]
+[ext_resource type="Texture2D" uid="uid://bjfpwtjfb58f7" path="res://assets/neptuno.png" id="10_dg7ii"]
+
+[node name="Main" type="Node2D" unique_id=363413879]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_0kxa1")
+
+[node name="Fondo" type="TextureRect" parent="." unique_id=395704192]
+offset_left = -1924.0
+offset_top = -1810.0
+offset_right = 1938.0
+offset_bottom = 1822.0
+texture = ExtResource("2_7an46")
+flip_v = true
+
+[node name="Sol" parent="." unique_id=1546014301 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Sol" type="Sprite2D" parent="Sol" unique_id=707480536]
+scale = Vector2(0.186, 0.197)
+texture = ExtResource("3_woaio")
+
+[node name="Planetas" type="Node2D" parent="." unique_id=92100264]
+texture_filter = 1
+scale = Vector2(3, 3)
+
+[node name="Venus" parent="Planetas" unique_id=604278297 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Venus" type="Sprite2D" parent="Planetas/Venus" unique_id=631636349]
+position = Vector2(-2.6666667, -177.33331)
+scale = Vector2(0.08742404, 0.09230686)
+texture = ExtResource("3_a8p2b")
+
+[node name="Marte" parent="Planetas" unique_id=784420124 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Marte" type="Sprite2D" parent="Planetas/Marte" unique_id=1900922011]
+position = Vector2(-3.0517578e-05, -322.66666)
+scale = Vector2(0.15736961, 0.16349207)
+texture = ExtResource("4_26pgj")
+
+[node name="Tierra" parent="Planetas" unique_id=743789399 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Tierra" type="Sprite2D" parent="Planetas/Tierra" unique_id=1435613793]
+position = Vector2(0, -256)
+scale = Vector2(0.19340274, 0.19895837)
+texture = ExtResource("3_jumxm")
+
+[node name="Mercurio" parent="Planetas" unique_id=1999458666 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Mercurio" type="Sprite2D" parent="Planetas/Mercurio" unique_id=138865947]
+position = Vector2(-9.536743e-07, -108.000015)
+scale = Vector2(0.073404945, 0.07295736)
+texture = ExtResource("6_o8odp")
+
+[node name="Jupiter" parent="Planetas" unique_id=642014085 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Jupiter" type="Sprite2D" parent="Planetas/Jupiter" unique_id=1729269665]
+position = Vector2(1.333374, -396.00006)
+scale = Vector2(0.13574222, 0.138916)
+texture = ExtResource("7_lyxkq")
+
+[node name="Saturno" parent="Planetas" unique_id=1175683328 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Saturno" type="Sprite2D" parent="Planetas/Saturno" unique_id=587872392]
+position = Vector2(1.333333, -485.33328)
+scale = Vector2(0.13130699, 0.13391113)
+texture = ExtResource("8_dg7ii")
+
+[node name="Urano" parent="Planetas" unique_id=442303566 instance=ExtResource("2_jumxm")]
+scale = Vector2(0.5, 0.5)
+
+[node name="Urano" type="Sprite2D" parent="Planetas/Urano" unique_id=843382267]
+position = Vector2(0.00012207031, -578.6666)
+scale = Vector2(0.20499997, 0.216)
+texture = ExtResource("9_woaio")
+
+[node name="Neptuno" parent="Planetas" unique_id=1865806138 instance=ExtResource("2_jumxm")]
+
+[node name="Neptuno" type="Sprite2D" parent="Planetas/Neptuno" unique_id=1599437067]
+position = Vector2(2, -338)
+scale = Vector2(0.12699996, 0.12350002)
+texture = ExtResource("10_dg7ii")
+
+[node name="Timer" type="Timer" parent="." unique_id=1635742871]
+wait_time = 0.05
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1752838390]
+visible = false

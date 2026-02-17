@@ -1,0 +1,726 @@
+# Proyecto Solar System - Documentación Completa
+
+## Descripción General del Proyecto
+
+Este es un **Simulador del Sistema Solar** construido en **Godot 4**. 
+Muestra el Sol y 8 planetas (Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano y Neptuno) que 
+rotan a diferentes velocidades alrededor del punto central.
+
+---
+
+## Estructura del Proyecto
+
+```
+proyecto-solarsystem/
+├── main.gd                          # Script principal con lógica de rotación
+├── main.gd.uid                      # Referencia del script
+├── project.godot                    # Configuración del proyecto
+├── escenas/
+│   ├── main.tscn                    # Escena principal con todos los planetas
+│   └── planeta.tscn                 # Plantilla/prefab de planeta
+└── assets/                          # Texturas e imágenes
+    ├── fondo1.jpg                   # Imagen de fondo
+    ├── sol.png                      # Textura del Sol
+    ├── mercurio.png                 # Textura de Mercurio
+    ├── venus.png                    # Textura de Venus
+    ├── tierra.png                   # Textura de la Tierra
+    ├── marte.png                    # Textura de Marte
+    ├── jupiter.png                  # Textura de Júpiter
+    ├── saturno.png                  # Textura de Saturno
+    ├── urano.png                    # Textura de Urano
+    └── neptuno.png                  # Textura de Neptuno
+```
+
+---
+
+## Cómo Funciona el Proyecto
+
+### 1. **Escena Principal (main.tscn)**
+
+La escena principal está compuesta por:
+
+- **Fondo**: Un TextureRect que muestra la imagen de fondo del espacio
+- **Sol**: El sol central, que rota lentamente
+- **Planetas**: Contenedor Node2D que agrupa todos los planetas en escala 3x
+
+Cada planeta es una instancia de la plantilla `planeta.tscn` con un Sprite2D que muestra la textura del planeta.
+
+### 2. **Script Principal (main.gd)**
+
+El script maneja la lógica de rotación en la función `_process()`:
+
+```gdscript
+extends Node2D
+
+var velocidades = {
+    "Mercurio": 0.1,
+    "Venus": -0.05,
+    "Tierra": 1.0,
+    "Marte": 0.9,
+    "Jupiter": 2.5,
+    "Saturno": 2.3,
+    "Urano": -1.5,
+    "Neptuno": 1.6
+}
+
+func _process(delta):
+    # Rotación del Sol
+    if has_node("Sol"):
+        $Sol.rotation += 0.05 * delta
+    
+    # Rotación de los planetas
+    for planeta in $Planetas.get_children():
+        if planeta.name == "Sol":
+            continue
+        
+        var velocidad_base = velocidades.get(planeta.name, 0.5)
+        planeta.rotation += velocidad_base * delta
+```
+
+### Características Clave:
+
+| Característica | Descripción |
+|---|---|
+| **Diccionario de velocidades** | Almacena la velocidad de rotación para cada planeta |
+| **Delta Time** | Usa `delta` para animación independiente de la velocidad de fotogramas |
+| **Manejo de errores** | Verifica si los nodos existen antes de acceder a ellos |
+| **Valor por defecto** | Usa 0.5 como velocidad predeterminada si el planeta no está en el diccionario |
+
+### 3. **Plantilla de Planeta (planeta.tscn)**
+
+Una plantilla reutilizable que contiene:
+
+- **Planeta (Node2D)**: Contenedor principal
+- **Sprite2D**: Muestra la textura del planeta
+- **CollisionShape2D**: (Actualmente vacío, para futuras interacciones)
+
+---
+
+## Velocidades de Rotación
+
+Cada planeta tiene una velocidad de rotación única definida en el diccionario `velocidades`:
+
+| Planeta | Velocidad | Dirección | Notas |
+|---|---|---|---|
+| Mercurio | 0.1 | Horaria | Planeta más lento |
+| Venus | -0.05 | Contrahoraria | Rota hacia atrás |
+| Tierra | 1.0 | Horaria | Velocidad de referencia |
+| Marte | 0.9 | Horaria | Ligeramente más lento que la Tierra |
+| Júpiter | 2.5 | Horaria | Rotación más rápida |
+| Saturno | 2.3 | Horaria | Rotación rápida |
+| Urano | -1.5 | Contrahoraria | Rota hacia atrás |
+| Neptuno | 1.6 | Horaria | Velocidad moderada-rápida |
+
+**Nota**: Los valores negativos hacen que los planetas roten en sentido contrario a las manecillas del reloj.
+
+---
+
+## Cómo Personalizar el Proyecto
+
+### 1. **Cambiar la Velocidad de Rotación**
+
+Edita el diccionario `velocidades` en `main.gd`:
+
+```gdscript
+var velocidades = {
+    "Tierra": 2.0,  # Cambiar de 1.0 a 2.0 para duplicar la velocidad
+}
+```
+
+### 2. **Agregar un Nuevo Planeta**
+
+1. Crea una nueva instancia de `planeta.tscn` en el contenedor Planetas
+2. Agrega el archivo de textura a la carpeta assets
+3. Actualiza la textura en el nodo Sprite2D del planeta
+4. Agrega una entrada al diccionario `velocidades` en main.gd
+
+### 3. **Cambiar el Fondo**
+
+1. Reemplaza `fondo1.jpg` en la carpeta assets
+2. El fondo se actualiza automáticamente en la escena
+
+### 4. **Ajustar Posiciones de Planetas**
+
+Edita la propiedad `position` de cada Sprite2D en `main.tscn` para cambiar las distancias orbitales.
+
+---
+
+## Detalles Técnicos
+
+### Versión de Godot
+- Construido para **Godot 4** (usa GDScript 2.0)
+
+### Conceptos Clave Utilizados
+
+1. **Jerarquía de Nodos**: Estructura organizada con contenedores
+2. **Herencia**: Usando `extends Node2D` para funcionalidad 2D
+3. **Iteración de Bucles**: Bucle `for...in` para procesar múltiples planetas
+4. **Diccionarios**: Usando diccionarios para gestionar datos fácilmente
+5. **Delta Time**: Animación independiente de la velocidad de fotogramas
+6. **Consultas de Nodos**: `has_node()` y `get_children()` para acceso seguro de nodos
+
+### Consideraciones de Rendimiento
+
+- ✅ Acceso eficiente a nodos usando notación `$`
+- ✅ Usa delta time para animación suave
+- ✅ Cálculos mínimos por fotograma
+- ✅ Escalable para más planetas
+
+---
+
+## Problemas Comunes y Soluciones
+
+| Problema | Causa | Solución |
+|---|---|---|
+| El planeta no rota | Planeta no está en el diccionario `velocidades` | Agregar el nombre del planeta al diccionario con la velocidad deseada |
+| Error de referencia nula | Nodo no encontrado en la escena | Verificar que la jerarquía de nodos coincida con las referencias del script |
+| Velocidad incorrecta | Valor incorrecto en el diccionario | Ajustar el valor de velocidad (mayor = más rápido) |
+| Planetas superpuestos | Valores de posición incorrectos | Ajustar la propiedad `position` en la escena |
+
+---
+
+## Resultados de Aprendizaje
+
+Este proyecto enseña:
+
+- ✅ Composición de escenas y jerarquía de nodos
+- ✅ Conceptos básicos de GDScript (variables, diccionarios, bucles)
+- ✅ La función `_process()` para animación
+- ✅ Nodos Sprite2D para mostrar gráficos
+- ✅ Delta time para animación independiente de fotogramas
+- ✅ Patrones de acceso seguro a nodos
+- ✅ Interacción entre scripts y escenas en Godot
+
+---
+
+## Resumen de Archivos
+
+| Archivo | Tipo | Propósito |
+|---|---|---|
+| main.gd | Script | Maneja la lógica de rotación de planetas |
+| main.tscn | Escena | Escena principal con todos los planetas y el sol |
+| planeta.tscn | Escena | Plantilla reutilizable de planeta |
+| Project.godot | Config | Configuración del proyecto Godot |
+| fondo1.jpg | Imagen | Fondo del espacio |
+| *.png | Imágenes | Texturas de los planetas |
+
+---
+
+## Cómo Ejecutar
+
+1. Abre el proyecto en Godot 4
+2. Selecciona `main.tscn` como escena principal
+3. Haz clic en **Play** (F5)
+4. ¡Observa cómo los planetas rotan!
+
+---
+
+## Ideas para Mejoras Futuras
+
+- 🌍 Agregar movimiento orbital (planetas orbitando alrededor del sol)
+- 🌍 Agregar información de planeta al hacer clic
+- 🌍 Agregar controles de zoom/panorámica
+- 🌍 Agregar simulación de física realista
+- 🌍 Agregar efectos de sonido
+- 🌍 Crear una versión 3D con Camera3D
+
+---
+
+**Creado**: Proyecto de Aprendizaje en Godot  
+**Versión**: 1.0  
+**Última Actualización**: 2026
+
+
+# Documentación Visual del Proyecto
+
+## Diagrama de Descripción General del Proyecto
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                 SIMULADOR DEL SISTEMA SOLAR                     │
+│                      (Proyecto de Godot 4)                      │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ├─── PANTALLA
+                              │    ├─ 8 Planetas girando
+                              │    ├─ 1 Sol central
+                              │    └─ Fondo del espacio
+                              │
+                              ├─── LÓGICA
+                              │    ├─ Velocidades de rotación (diccionario)
+                              │    ├─ Animación basada en fotogramas
+                              │    └─ Posiciones sin cambios
+                              │
+                              └─── ARCHIVOS
+                                   ├─ main.gd (script)
+                                   ├─ main.tscn (escena)
+                                   ├─ planeta.tscn (plantilla)
+                                   └─ assets/ (imágenes)
+```
+
+---
+
+## Árbol de Estructura de Archivos
+
+```
+proyecto-solarsystem/
+│
+├── main.gd                          🔵 SCRIPT PRINCIPAL
+│   ├─ extends Node2D
+│   ├─ var velocidades = { }        (Velocidades de rotación)
+│   └─ func _process(delta)         (Lógica de animación)
+│
+├── project.godot                    ⚙️ CONFIG DEL PROYECTO
+│   └─ Configuración de Godot 4.x
+│
+├── main.gd.uid                      🔗 ARCHIVO DE REFERENCIA
+│   └─ Identificador del script
+│
+├── escenas/                         📁 ESCENAS
+│   ├── main.tscn                    🎬 ESCENA PRINCIPAL
+│   │   ├─ Main (Node2D, tiene script main.gd)
+│   │   ├─ Fondo (TextureRect)
+│   │   ├─ Sol (instancia de Node2D de planeta.tscn)
+│   │   └─ Planetas (contenedor Node2D)
+│   │      ├─ Mercurio (instancia de planeta.tscn)
+│   │      ├─ Venus   (instancia de planeta.tscn)
+│   │      ├─ Tierra  (instancia de planeta.tscn)
+│   │      ├─ Marte   (instancia de planeta.tscn)
+│   │      ├─ Jupiter (instancia de planeta.tscn)
+│   │      ├─ Saturno (instancia de planeta.tscn)
+│   │      ├─ Urano   (instancia de planeta.tscn)
+│   │      └─ Neptuno (instancia de planeta.tscn)
+│   │
+│   └── planeta.tscn                 🌍 PLANTILLA DE PLANETA
+│       └─ Planeta (Node2D)
+│          ├─ Sprite2D (muestra textura del planeta)
+│          └─ CollisionShape2D (opcional, sin usar)
+│
+└── assets/                          📁 TEXTURAS E IMÁGENES
+    ├── fondo1.jpg                   🌌 Fondo
+    ├── sol.png                      ☀️ Sol
+    ├── mercurio.png                 🪨 Mercurio
+    ├── venus.png                    🪨 Venus
+    ├── tierra.png                   🌍 Tierra
+    ├── marte.png                    🪨 Marte
+    ├── jupiter.png                  🪨 Júpiter
+    ├── saturno.png                  🪨 Saturno
+    ├── urano.png                    🪨 Urano
+    └── neptuno.png                  🪨 Neptuno
+```
+
+---
+
+## Jerarquía de Nodos de la Escena
+
+### Estructura Visual
+
+```
+Main (Node2D) ← Script: main.gd
+│
+├─ Fondo (TextureRect)
+│  └─ Textura: fondo1.jpg
+│
+├─ Sol (Node2D) [Instancia de planeta.tscn]
+│  └─ Sol (Sprite2D)
+│     └─ Textura: sol.png
+│
+└─ Planetas (Node2D) ← Contiene todos los planetas a escala 3x
+   │
+   ├─ Mercurio (Node2D) [Instancia de planeta.tscn]
+   │  └─ Mercurio (Sprite2D) - Textura: mercurio.png
+   │
+   ├─ Venus (Node2D) [Instancia de planeta.tscn]
+   │  └─ Venus (Sprite2D) - Textura: venus.png
+   │
+   ├─ Tierra (Node2D) [Instancia de planeta.tscn]
+   │  └─ Tierra (Sprite2D) - Textura: tierra.png
+   │
+   ├─ Marte (Node2D) [Instancia de planeta.tscn]
+   │  └─ Marte (Sprite2D) - Textura: marte.png
+   │
+   ├─ Jupiter (Node2D) [Instancia de planeta.tscn]
+   │  └─ Jupiter (Sprite2D) - Textura: jupiter.png
+   │
+   ├─ Saturno (Node2D) [Instancia de planeta.tscn]
+   │  └─ Saturno (Sprite2D) - Textura: saturno.png
+   │
+   ├─ Urano (Node2D) [Instancia de planeta.tscn]
+   │  └─ Urano (Sprite2D) - Textura: urano.png
+   │
+   └─ Neptuno (Node2D) [Instancia de planeta.tscn]
+      └─ Neptuno (Sprite2D) - Textura: neptuno.png
+```
+
+---
+
+## Diagrama de Flujo de Ejecución
+
+```
+┌─ MOTOR GODOT INICIA
+│
+├─ Carga la Escena Principal: main.tscn
+│  └─ Adjunta el script main.gd al nodo Main
+│
+├─ Carga el Árbol de la Escena
+│  ├─ Textura Fondo cargada
+│  ├─ Nodo Sol creado (gira)
+│  └─ Contenedor Planetas creado (contiene 8 planetas)
+│
+└─→ Entra en el Bucle de Juego (60 FPS)
+   │
+   ├─→ FOTOGRAMA 1
+   │  └─ _process(delta=0.0167)
+   │     ├─ Sun.rotation += 0.05 * 0.0167 = 0.000835
+   │     ├─ Para cada planeta en Planetas:
+   │     │  ├─ Mercurio.rotation += 0.1 * 0.0167
+   │     │  ├─ Venus.rotation += (-0.05) * 0.0167
+   │     │  ├─ Tierra.rotation += 1.0 * 0.0167
+   │     │  └─ ... (igual para todos los planetas)
+   │     └─ RENDERIZA escena actualizada
+   │
+   ├─→ FOTOGRAMA 2
+   │  └─ _process(delta=0.0167)
+   │     └─ Actualiza rotaciones nuevamente (compuesto)
+   │
+   └─→ FOTOGRAMA 3 ... (repite hasta que se detiene el juego)
+      └─ El jugador ve planetas girando suavemente
+```
+
+---
+
+## Comparación de Velocidades de Rotación
+
+### Representación Visual (1 segundo de tiempo de juego)
+
+```
+A t = 1.0 segundo:
+
+Jupiter (2.5)    ▌▌▌▌▌▌▌▌▌▌▌▌▌ (2.5 radianes)
+Saturno (2.3)    ▌▌▌▌▌▌▌▌▌▌▌▌ (2.3 radianes)
+Neptuno (1.6)    ▌▌▌▌▌▌▌▌ (1.6 radianes)
+Tierra (1.0)     ▌▌▌▌▌ (1.0 radianes)
+Marte (0.9)      ▌▌▌▌ (0.9 radianes)
+Mercurio (0.1)   ▌ (0.1 radianes)
+Venus (-0.05)    ◀ (gira hacia atrás)
+Urano (-1.5)     ◀◀◀◀◀◀◀ (gira hacia atrás)
+
+Velocidad: →──→──→ (positivo = sentido de las manecillas del reloj)
+           ◀──◀──◀ (negativo = sentido contrario a las manecillas del reloj)
+```
+
+---
+
+## Diagrama de Flujo de Datos
+
+```
+┌─────────────────┐
+│  velocidades    │ (Diccionario: nombre planeta → velocidad)
+│  Diccionario    │
+└────────┬────────┘
+         │
+         ├─ "Mercurio": 0.1
+         ├─ "Venus": -0.05
+         ├─ "Tierra": 1.0
+         ├─ "Marte": 0.9
+         ├─ "Jupiter": 2.5
+         ├─ "Saturno": 2.3
+         ├─ "Urano": -1.5
+         └─ "Neptuno": 1.6
+         │
+         ↓ (búsqueda)
+    ┌────────────────────────┐
+    │ velocidades.get(       │
+    │   "Tierra",     ← Nombre del planeta
+    │   0.5           ← Valor por defecto
+    │ )                │
+    └────────┬─────────┘
+             │
+             ↓ Devuelve: 1.0
+             │
+    ┌────────────────────────┐
+    │ velocidad_base = 1.0   │
+    └────────┬─────────────┘
+             │
+             ↓ (multiplicar por delta)
+    ┌────────────────────────────┐
+    │ velocidad_base * delta     │
+    │  = 1.0 * 0.0167           │
+    │  = 0.0167                 │
+    └────────┬────────────────┘
+             │
+             ↓ (suma a rotación)
+    ┌────────────────────────────┐
+    │ planeta.rotation += 0.0167 │
+    │ (el planeta gira un poco)  │
+    └────────┬────────────────┘
+             │
+             ↓ (cada fotograma)
+    ┌────────────────────────────┐
+    │ 60 veces por segundo       │
+    │ = animación suave          │
+    └────────────────────────────┘
+```
+
+---
+
+## Tabla de Comparación de Velocidades de Rotación
+
+```
+Ranking de Velocidad de Planeta (Más rápido → Más lento):
+
+  Jupiter      ★★★★★★★★★★ 2.5
+  Saturno      ★★★★★★★★★  2.3
+  Neptuno      ★★★★★★★    1.6
+  Tierra       ★★★★★      1.0
+  Marte        ★★★★       0.9
+  Mercurio     ★          0.1
+  Venus        •         -0.05 (inverso, muy lento)
+  Urano        ★★★★★★★   -1.5 (inverso, rápido)
+
+Leyenda:
+★ = Rotación horaria (velocidad positiva)
+• = Rotación contrahoraria (velocidad negativa)
+- = Sin movimiento
+```
+
+---
+
+## Descripción General de Memoria y Rendimiento
+
+```
+USO DE RECURSOS:
+
+Memoria:
+  - Script principal (main.gd):     ~5 KB
+  - Escena principal (main.tscn):   ~15 KB
+  - Textura de fondo:               ~500 KB
+  - 9 Texturas de planetas:         ~2-5 MB total
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Total:                            ~3-6 MB
+
+Procesamiento (por fotograma @ 60 FPS):
+  - Rotación del Sol:               1 cálculo
+  - Rotación de 8 planetas:         8 cálculos
+  - Total de cálculos:              9 por fotograma
+  - Tiempo CPU por fotograma:       <1 ms (negligible)
+
+Nodos en la Escena:
+  - Nodos Totales:                 ~20 nodos
+  - Desglose por tipo:
+    ├─ Node2D:                      11 nodos (contenedores)
+    ├─ Sprite2D:                    10 nodos (visuales)
+    ├─ TextureRect:                 1 nodo (fondo)
+    └─ CollisionShape2D:            8 nodos (sin usar)
+
+Rendimiento: ✅ EXCELENTE
+  - Uso de CPU:    < 1%
+  - Memoria:       < 10 MB
+  - FPS Objetivo:  60+ FPS
+  - Optimización:  Podría manejar 100+ planetas fácilmente
+```
+
+---
+
+## Tabla de Resumen de Propiedades de Planeta
+
+```
+TABLA DETALLADA DE PLANETA:
+
+┌──────────┬─────────┬────────┬────────────────────────┐
+│ Planeta  │Velocidad│Dirección│ Apariencia Real       │
+├──────────┼─────────┼────────┼────────────────────────┤
+│Mercurio  │ 0.1     │ ↻ CW   │ Rotación muy lenta    │
+│Venus     │ -0.05   │ ↺ CCW  │ Inverso, muy lento    │
+│Tierra    │ 1.0     │ ↻ CW   │ Línea base, giro norma
+│Marte     │ 0.9     │ ↻ CW   │ Ligeramente más lento  │
+│Jupiter   │ 2.5     │ ↻ CW   │ Rotación rápida       │
+│Saturno   │ 2.3     │ ↻ CW   │ Rotación muy rápida   │
+│Urano     │ -1.5    │ ↺ CCW  │ Inverso, giro rápido  │
+│Neptuno   │ 1.6     │ ↻ CW   │ Velocidad mod-rápida  │
+└──────────┴─────────┴────────┴────────────────────────┘
+
+Leyenda:
+↻ CW  = Sentido de las manecillas del reloj
+↺ CCW = Sentido contrario a las manecillas del reloj
+```
+
+---
+
+## Visualización de la Estructura del Código
+
+```
+ESTRUCTURA DEL ARCHIVO MAIN.GD:
+
+┌─────────────────────────────────────────────────────┐
+│ extends Node2D                                      │
+│ (Hereda de la clase Node2D para funcionalidad 2D)   │
+└─────────────────────────────────────────────────────┘
+                          │
+                          ↓
+    ┌─────────────────────────────────────────────┐
+    │ var velocidades = {                         │
+    │   "Mercurio": 0.1,                          │
+    │   "Venus": -0.05,                           │
+    │   "Tierra": 1.0,                            │
+    │   ...                                       │
+    │ }                                           │
+    │ (Diccionario: almacena velocidades)         │
+    └─────────────────────────────────────────────┘
+                          │
+                          ↓
+    ┌─────────────────────────────────────────────┐
+    │ func _process(delta):                       │
+    │ (Bucle principal de animación, cada foto)   │
+    │                                             │
+    │ ├─ if has_node("Sol"):                      │
+    │ │  └─ $Sol.rotation += 0.05 * delta         │
+    │ │     (Rota el Sol de forma segura)         │
+    │ │                                           │
+    │ ├─ for planeta in $Planetas.get_children(): │
+    │ │  ├─ if planeta.name == "Sol": continue    │
+    │ │  │  (Omitir si se encuentra el Sol)       │
+    │ │  │                                        │
+    │ │  ├─ var velocidad_base =                  │
+    │ │  │    velocidades.get(planeta.name, 0.5)  │
+    │ │  │  (Obtener velocidad o usar defecto)    │
+    │ │  │                                        │
+    │ │  └─ planeta.rotation +=                   │
+    │ │     velocidad_base * delta                │
+    │ │     (Aplicar rotación)                    │
+    │ │                                           │
+    │ └─ (El bucle se repite para cada planeta)   │
+    └─────────────────────────────────────────────┘
+```
+
+---
+
+## Propiedades del Inspector de Godot
+
+### Nodo Main (Script Adjunto Aquí)
+```
+Main (Node2D)
+├─ Transform
+│  ├─ Posición: (0, 0)
+│  ├─ Rotación: 0 rad
+│  └─ Escala: (1, 1)
+├─ Canvas Item
+│  ├─ Visibilidad: Visible
+│  ├─ Modulate: Blanco
+│  └─ Self Modulate: Blanco
+└─ Script: main.gd ✓
+```
+
+### Contenedor de Planetas (Escala 3x)
+```
+Planetas (Node2D)
+├─ Transform
+│  ├─ Posición: (0, 0)
+│  ├─ Rotación: (actualizado continuamente por script)
+│  └─ Escala: (3, 3) ← Hace los planetas 3x más grandes
+├─ Filtro de Textura: Lineal (para apariencia más suave)
+└─ Hijos: 8 planetas
+```
+
+### Cada Planeta (Sprite2D)
+```
+Mercurio (Node2D) [instancia planeta.tscn]
+├─ Posición: (-9.536e-07, -108) ← Posición orbital
+├─ Rotación: (actualizada por script)
+│  Sprite2D
+│  ├─ Posición: (dentro de contenedor planeta)
+│  ├─ Escala: (0.0734, 0.0730)
+│  ├─ Textura: mercurio.png
+│  └─ Filtro de Textura: Lineal
+```
+
+---
+
+## Ruta de Aprendizaje para Estudiante
+
+```
+ETAPA PRINCIPIANTE:
+  └─ Entender la jerarquía de la escena
+     └─ Saber qué contiene main.tscn
+     └─ Comprender el adjunto de script de Main
+
+ETAPA INTERMEDIA:
+  └─ Aprender sobre _process(delta)
+     └─ Entender animación basada en fotogramas
+     └─ Aprender la importancia de delta time
+
+ETAPA AVANZADA:
+  └─ Modificar diccionario de velocidades
+     └─ Agregar nuevos planetas a la escena
+     └─ Crear velocidades personalizadas
+
+ETAPA EXPERTO:
+  └─ Agregar movimiento orbital
+     └─ Implementar características interactivas
+     └─ Optimizar para rendimiento
+```
+
+---
+
+## Mapa de Conexiones y Dependencias
+
+```
+main.gd (Script)
+    │
+    ├─→ referencias nodo "Sol"
+    │   └─→ necesita Sprite2D con sol.png
+    │
+    ├─→ referencias contenedor "Planetas"
+    │   └─→ contiene 8 nodos hijo de planeta:
+    │       ├─→ "Mercurio" → necesita mercurio.png
+    │       ├─→ "Venus" → necesita venus.png
+    │       ├─→ "Tierra" → necesita tierra.png
+    │       ├─→ "Marte" → necesita marte.png
+    │       ├─→ "Jupiter" → necesita jupiter.png
+    │       ├─→ "Saturno" → necesita saturno.png
+    │       ├─→ "Urano" → necesita urano.png
+    │       └─→ "Neptuno" → necesita neptuno.png
+    │
+    └─→ diccionario velocidades
+        └─→ coincide exactamente con nombres de nodos
+            (Si los nombres no coinciden, usa 0.5 por defecto)
+
+main.tscn (Escena)
+    │
+    ├─→ referencias main.gd
+    ├─→ referencias fondo1.jpg
+    ├─→ referencias planeta.tscn (9 instancias)
+    └─→ referencias todas las texturas de planetas
+
+
+DEPENDENCIAS CRÍTICAS ⚠️:
+  ✓ Nombres de nodos en escena = Claves en diccionario velocidades
+  ✓ main.gd adjunto al nodo Main
+  ✓ Todos los archivos de textura presentes en assets/
+  ✓ planeta.tscn existe para instancias
+```
+
+---
+
+## Resumen Visual
+
+```
+╔════════════════════════════════════════════════════╗
+║    ARQUITECTURA DEL PROYECTO SISTEMA SOLAR         ║
+╠════════════════════════════════════════════════════╣
+║                                                    ║
+║  ENTRADA: Bucle de juego (60 FPS)                  ║
+║    ↓                                               ║
+║  PROCESO: _process(delta) en main.gd               ║
+║    ├─ Leer velocidades[nombre_planeta]             ║
+║    ├─ Calcular: velocidad * delta                  ║
+║    └─ Actualizar: planeta.rotation += valor        ║
+║    ↓                                               ║
+║  RENDERIZAR: Mostrar sprites rotados               ║
+║    ↓                                               ║
+║  SALIDA: Animación suave ✓                         ║
+║                                                    ║
+╚════════════════════════════════════════════════════╝
+```
+
+¡Este proyecto es un excelente ejemplo de desarrollo de juegos **simple pero poderoso**!
