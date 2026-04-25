@@ -1,0 +1,528 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_level_script"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2_player_scene"]
+[ext_resource type="PackedScene" path="res://scenes/NPC.tscn" id="3_npc_scene"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(30, 1, 180)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ground"]
+size = Vector3(30, 1, 180)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_obstacle"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_obstacle"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="Environment" id="Environment_level"]
+background_mode = 1
+background_color = Color(0.58, 0.82, 0.98, 1)
+ambient_light_color = Color(1, 0.98, 0.94, 1)
+ambient_light_energy = 1.2
+fog_enabled = true
+fog_light_color = Color(0.78, 0.9, 1, 1)
+fog_density = 0.008
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ground"]
+albedo_color = Color(0.38, 0.71, 0.39, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obstacle"]
+albedo_color = Color(0.95, 0.67, 0.28, 1)
+roughness = 0.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_road"]
+size = Vector3(20, 0.08, 2.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_road"]
+albedo_color = Color(0.15, 0.18, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_road_alt"]
+albedo_color = Color(0.2, 0.14, 0.18, 1)
+roughness = 0.9
+
+[sub_resource type="BoxMesh" id="BoxMesh_lane_mark"]
+size = Vector3(1.3, 0.1, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lane_mark"]
+albedo_color = Color(1, 0.96, 0.82, 1)
+roughness = 0.35
+
+[node name="Level" type="Node3D"]
+script = ExtResource("1_level_script")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_level")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+position = Vector3(0, 8, 0)
+rotation_degrees = Vector3(-50, 35, 0)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ground")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_ground")
+material_override = SubResource("StandardMaterial3D_ground")
+
+[node name="RoadLaneA" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, 4)
+mesh = SubResource("BoxMesh_road")
+material_override = SubResource("StandardMaterial3D_road")
+
+[node name="RoadLaneB" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, 1)
+mesh = SubResource("BoxMesh_road")
+material_override = SubResource("StandardMaterial3D_road_alt")
+
+[node name="RoadLaneC" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, -2)
+mesh = SubResource("BoxMesh_road")
+material_override = SubResource("StandardMaterial3D_road")
+
+[node name="RoadLaneD" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, -5)
+mesh = SubResource("BoxMesh_road")
+material_override = SubResource("StandardMaterial3D_road_alt")
+
+[node name="LaneMarkA1" type="MeshInstance3D" parent="."]
+position = Vector3(-6, 0.62, 4)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkA2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 0.62, 4)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkA3" type="MeshInstance3D" parent="."]
+position = Vector3(2, 0.62, 4)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkA4" type="MeshInstance3D" parent="."]
+position = Vector3(6, 0.62, 4)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkB1" type="MeshInstance3D" parent="."]
+position = Vector3(-6, 0.62, 1)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkB2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 0.62, 1)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkB3" type="MeshInstance3D" parent="."]
+position = Vector3(2, 0.62, 1)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkB4" type="MeshInstance3D" parent="."]
+position = Vector3(6, 0.62, 1)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkC1" type="MeshInstance3D" parent="."]
+position = Vector3(-6, 0.62, -2)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkC2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 0.62, -2)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkC3" type="MeshInstance3D" parent="."]
+position = Vector3(2, 0.62, -2)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkC4" type="MeshInstance3D" parent="."]
+position = Vector3(6, 0.62, -2)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkD1" type="MeshInstance3D" parent="."]
+position = Vector3(-6, 0.62, -5)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkD2" type="MeshInstance3D" parent="."]
+position = Vector3(-2, 0.62, -5)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkD3" type="MeshInstance3D" parent="."]
+position = Vector3(2, 0.62, -5)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="LaneMarkD4" type="MeshInstance3D" parent="."]
+position = Vector3(6, 0.62, -5)
+mesh = SubResource("BoxMesh_lane_mark")
+material_override = SubResource("StandardMaterial3D_lane_mark")
+
+[node name="ObstacleA" type="StaticBody3D" parent="."]
+position = Vector3(-7, 1, 7)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObstacleA"]
+shape = SubResource("BoxShape3D_obstacle")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ObstacleA"]
+mesh = SubResource("BoxMesh_obstacle")
+material_override = SubResource("StandardMaterial3D_obstacle")
+
+[node name="ObstacleB" type="StaticBody3D" parent="."]
+position = Vector3(7, 1, -8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ObstacleB"]
+shape = SubResource("BoxShape3D_obstacle")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ObstacleB"]
+mesh = SubResource("BoxMesh_obstacle")
+material_override = SubResource("StandardMaterial3D_obstacle")
+
+[node name="Player" parent="." instance=ExtResource("2_player_scene")]
+position = Vector3(0, 1, 7)
+
+[node name="Car_A1" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(-7.5, 1, 4)
+movement_type = "lane_loop"
+lane_direction = 1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 4.8
+body_color = Color(0.96, 0.37, 0.33, 1)
+
+[node name="Car_A2" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(2.0, 1, 4)
+movement_type = "lane_loop"
+lane_direction = 1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 4.8
+body_color = Color(1, 0.76, 0.22, 1)
+
+[node name="Car_B1" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(8.0, 1, 1)
+movement_type = "lane_loop"
+lane_direction = -1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 6.0
+body_color = Color(0.26, 0.73, 0.95, 1)
+
+[node name="Car_B2" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(-1.0, 1, 1)
+movement_type = "lane_loop"
+lane_direction = -1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 6.0
+body_color = Color(0.44, 0.89, 0.47, 1)
+
+[node name="Car_C1" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(-8.5, 1, -2)
+movement_type = "lane_loop"
+lane_direction = 1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 7.0
+body_color = Color(0.9, 0.45, 1, 1)
+
+[node name="Car_D1" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(7.0, 1, -5)
+movement_type = "lane_loop"
+lane_direction = -1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 5.1
+body_color = Color(1, 0.57, 0.4, 1)
+
+[node name="Car_D2" parent="." instance=ExtResource("3_npc_scene")]
+position = Vector3(-3.5, 1, -5)
+movement_type = "lane_loop"
+lane_direction = -1
+lane_min_x = -9.5
+lane_max_x = 9.5
+speed = 5.1
+body_color = Color(0.42, 0.55, 1, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CollisionMessage" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 620.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.98, 0.87, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 4
+text = "¡Golpeaste un NPC! Vuelves al inicio"
+visible = false
+
+[node name="AttemptsLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 320.0
+offset_bottom = 120.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.92, 0.98, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 3
+text = "Intentos: 0"
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 132.0
+offset_right = 320.0
+offset_bottom = 172.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.95, 0.78, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 3
+text = "Filas: 0"
+
+[node name="BestLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 184.0
+offset_right = 360.0
+offset_bottom = 224.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.86, 1, 0.86, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 3
+text = "Mejor historico: 0"
+
+[node name="CollectiblesLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 236.0
+offset_right = 360.0
+offset_bottom = 276.0
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(1, 0.9, 0.45, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 3
+text = "Monedas: 0"
+
+[node name="ApiLabel" type="Label" parent="UI"]
+offset_left = 20.0
+offset_top = 288.0
+offset_right = 620.0
+offset_bottom = 330.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_outline_size = 3
+text = "API: lista"
+
+[node name="StartMenu" type="Panel" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -140.0
+offset_right = 220.0
+offset_bottom = 140.0
+
+[node name="Title" type="Label" parent="UI/StartMenu"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 30.0
+offset_right = 372.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+text = "Crossy Marco"
+
+[node name="Hint" type="Label" parent="UI/StartMenu"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 82.0
+offset_right = 404.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text = "Cruza los carriles y evita el trafico"
+
+[node name="StartButton" type="Button" parent="UI/StartMenu"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 162.0
+offset_right = 322.0
+offset_bottom = 216.0
+theme_override_font_sizes/font_size = 26
+text = "Empezar"
+
+[node name="PauseMenu" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -210.0
+offset_right = 190.0
+offset_bottom = 210.0
+
+[node name="PauseTitle" type="Label" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 316.0
+offset_bottom = 58.0
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
+text = "Pausa"
+
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 294.0
+offset_right = 292.0
+offset_bottom = 344.0
+theme_override_font_sizes/font_size = 22
+text = "Continuar"
+
+[node name="RestartButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 354.0
+offset_right = 292.0
+offset_bottom = 404.0
+theme_override_font_sizes/font_size = 22
+text = "Reiniciar"
+
+[node name="MusicLabel" type="Label" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 78.0
+offset_right = 336.0
+offset_bottom = 106.0
+theme_override_font_sizes/font_size = 18
+text = "Musica"
+
+[node name="MusicSlider" type="HSlider" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 112.0
+offset_right = 336.0
+offset_bottom = 128.0
+max_value = 1.0
+step = 0.01
+value = 0.6
+
+[node name="SfxLabel" type="Label" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 140.0
+offset_right = 336.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 18
+text = "Efectos"
+
+[node name="SfxSlider" type="HSlider" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 172.0
+offset_right = 336.0
+offset_bottom = 188.0
+max_value = 1.0
+step = 0.01
+value = 0.85
+
+[node name="DifficultyLabel" type="Label" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 206.0
+offset_right = 336.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 18
+text = "Dificultad"
+
+[node name="DifficultyOption" type="OptionButton" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 238.0
+offset_right = 336.0
+offset_bottom = 276.0
+
+[node name="GameOverMenu" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -140.0
+offset_right = 210.0
+offset_bottom = 140.0
+
+[node name="GameOverTitle" type="Label" parent="UI/GameOverMenu"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 20.0
+offset_right = 372.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+text = "Game Over"
+
+[node name="RowsValue" type="Label" parent="UI/GameOverMenu"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 82.0
+offset_right = 384.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+text = "Filas alcanzadas: 0"
+
+[node name="BestValue" type="Label" parent="UI/GameOverMenu"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 118.0
+offset_right = 384.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+text = "Mejor record: 0"
+
+[node name="RetryButton" type="Button" parent="UI/GameOverMenu"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 182.0
+offset_right = 308.0
+offset_bottom = 234.0
+theme_override_font_sizes/font_size = 24
+text = "Reintentar"
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="JumpSFX" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -6.0
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -4.0
+
+[node name="UiSFX" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -8.0
+
+[node name="BgmPlayer" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -18.0
+
+[node name="ApiHTTPRequest" type="HTTPRequest" parent="."]
+timeout = 8.0
